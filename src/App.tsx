@@ -203,7 +203,7 @@ function App() {
             <div className={styles.displayTypeContainer}>
 
 
-                { +value === 0 ? <img src={cashier} alt="hello"/> : <DisplayMoney dollarType={dollarType} coinType={coinType} onClickUpdateCurrencyType={onClickUpdateCurrencyType} /> }
+                { +value === 0 ? <img src={cashier} className={styles.cashier} alt="hello"/> : <DisplayMoney dollarType={dollarType} coinType={coinType} onClickUpdateCurrencyType={onClickUpdateCurrencyType} /> }
 
             </div>
 
