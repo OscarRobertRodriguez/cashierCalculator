@@ -1,0 +1,57 @@
+
+.display {
+  position: relative;
+  display: grid;
+  place-items: center;
+  grid-template-rows: 130px 25px;
+  width: 300px;
+}
+
+.hidden {
+  display: none;
+}
+
+.img {
+  max-width: 350px;
+  object-fit: contain;
+}
+
+.imgCoin {
+  width: 180px;
+  object-fit: contain;
+}
+
+
+
+.amount {
+  display: grid;
+  place-items: center;
+  position: absolute;
+  top: 30px;
+  color: #fff;
+  font-size: 3.6rem;
+  width: 65px;
+  font-weight: bold;
+  text-shadow: 2px  2px black;
+  background: #A6BF86;
+  border-radius: 15px;
+}
+
+.amountCoin {
+  position: absolute;
+  left: 55px;
+  bottom: 20px;
+  font-size: 5rem;
+  text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+}
+
+
+.title {
+  text-transform: uppercase;
+  font-weight: bolder;
+  letter-spacing: 2px;
+  color:#fff;
+  grid-row: 2/3;
+}
+
+
