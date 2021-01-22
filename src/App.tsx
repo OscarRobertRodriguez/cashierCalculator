@@ -6,7 +6,7 @@ import DisplayMoney from "./components/DisplayMoney";
 
 
 function App() {
-    const [value, setValue] = useState<string>('0');
+    const [value, setValue] = useState<string>('0.00');
     const [dollars, setDollars] = useState<number>(0);
     const [cents, setCents] = useState<number>(0);
     const [centsTotal, setCentsTotal] = useState<number>(0);
@@ -198,12 +198,12 @@ function App() {
                 <h2>cashier <img src={register} alt={'cashier'} /> calculator</h2>
             </header>
             <input className={styles.input} type='number' pattern="^\d*(\.\d{0,2})?$"
-                   onChange={e => onHandleInputChange(e)} value={value}/>
+                   onChange={e => onHandleInputChange(e)} onFocus={ () => setValue('')} value={value}/>
 
             <div className={styles.displayTypeContainer}>
 
 
-                { +value === 0 ? <img src={cashier} className={styles.cashier} alt="hello"/> : <DisplayMoney dollarType={dollarType} coinType={coinType} onClickUpdateCurrencyType={onClickUpdateCurrencyType} /> }
+                { +value === 0 || value.length <= 0 ? <img src={cashier} className={styles.cashier} alt="hello"/> : <DisplayMoney dollarType={dollarType} coinType={coinType} onClickUpdateCurrencyType={onClickUpdateCurrencyType} /> }
 
             </div>
 
