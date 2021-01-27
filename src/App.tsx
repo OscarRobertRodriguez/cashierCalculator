@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import styles from './styles/App.module.scss';
 import register from './svgs/register.svg';
 import cashier from './svgs/cashier-svgrepo-com.svg';
@@ -62,79 +62,79 @@ function App() {
     }, [value]);
 
 
+    const convertToCoins = useCallback(() => {
 
+        if (centsTotal / 25 >= 1) {
+            let [quartersTotal] = (String(cents / 25)).split('.');
+            setCoinType({...coinType, quarters: +quartersTotal});
+            let total: number;
+            total = 25 * +quartersTotal;
+            setCentsTotal(cents - total);
+        } else if (centsTotal / 10 >= 1) {
+            let [dimesTotal] = (String(centsTotal / 10)).split('.');
+            setCoinType({...coinType, dimes: +dimesTotal});
+            let total: number;
+            total = 10 * +dimesTotal;
+            setCentsTotal(centsTotal - total);
+        } else if (centsTotal / 5 >= 1) {
+            let [nickelsTotal] = (String(centsTotal / 5)).split('.');
+            setCoinType({...coinType, nickels: +nickelsTotal});
+            let total: number;
+            total = 5 * +nickelsTotal;
+            setCentsTotal(centsTotal - total);
+        } else if (centsTotal >= 1) {
+
+            let [penniesTotal] = (String(centsTotal)).split('.');
+            setCoinType({...coinType, pennies: +penniesTotal});
+            let total: number;
+            total = +penniesTotal;
+            setCentsTotal(centsTotal - total);
+        }
+
+    }, [centsTotal, setCoinType, setCentsTotal, coinType, cents] )
+
+
+
+    const convertToDollars = useCallback(() => {
+
+        if (dollarsTotal / 100 >= 1) {
+            let [hundredTotal] = (String(dollars / 100)).split('.');
+            setDollarType({...dollarType, hundred: +hundredTotal});
+            let total: number;
+            total = 100 * +hundredTotal;
+            setDollarsTotal(dollars - total);
+        } else if (dollarsTotal / 20 >= 1) {
+            let [twentyTotal] = (String(dollarsTotal / 20)).split('.');
+            setDollarType({...dollarType, twenty: +twentyTotal});
+            let total: number;
+            total = 20 * +twentyTotal;
+            setDollarsTotal(dollarsTotal - total);
+        } else if (dollarsTotal / 10 >= 1) {
+            let [tenTotal] = (String(dollarsTotal / 10)).split('.');
+            setDollarType({...dollarType, ten: +tenTotal});
+            let total: number;
+            total = 10 * +tenTotal;
+            setDollarsTotal(dollarsTotal - total);
+        } else if (dollarsTotal / 5 >= 1) {
+            let [fiveTotal] = (String(dollarsTotal / 5)).split('.');
+            setDollarType({...dollarType, five: +fiveTotal});
+            let total: number;
+            total = 5 * +fiveTotal;
+            setDollarsTotal(dollarsTotal - total);
+        } else if (dollarsTotal >= 1) {
+            let [oneTotal] = (String(dollarsTotal)).split('.');
+            setDollarType({...dollarType, one: +oneTotal});
+            let total: number;
+            total = +oneTotal;
+            setDollarsTotal(dollarsTotal - total);
+        }
+    }, [dollarsTotal, setDollarsTotal, dollarType, dollars, setDollarType]);
 
     useEffect(() => {
-        const convertToCoins = () => {
+      convertToCoins();
+      convertToDollars();
 
-            if (centsTotal / 25 >= 1) {
-                let [quartersTotal] = (String(cents / 25)).split('.');
-                setCoinType({...coinType, quarters: +quartersTotal});
-                let total: number;
-                total = 25 * +quartersTotal;
-                setCentsTotal(cents - total);
-            } else if (centsTotal / 10 >= 1) {
-                let [dimesTotal] = (String(centsTotal / 10)).split('.');
-                setCoinType({...coinType, dimes: +dimesTotal});
-                let total: number;
-                total = 10 * +dimesTotal;
-                setCentsTotal(centsTotal - total);
-            } else if (centsTotal / 5 >= 1) {
-                let [nickelsTotal] = (String(centsTotal / 5)).split('.');
-                setCoinType({...coinType, nickels: +nickelsTotal});
-                let total: number;
-                total = 5 * +nickelsTotal;
-                setCentsTotal(centsTotal - total);
-            } else if (centsTotal >= 1) {
-
-                let [penniesTotal] = (String(centsTotal)).split('.');
-                setCoinType({...coinType, pennies: +penniesTotal});
-                let total: number;
-                total = +penniesTotal;
-                setCentsTotal(centsTotal - total);
-            }
-
-        }
-
-        const convertToDollars = () => {
-
-            if (dollarsTotal / 100 >= 1) {
-                let [hundredTotal] = (String(dollars / 100)).split('.');
-                setDollarType({...dollarType, hundred: +hundredTotal});
-                let total: number;
-                total = 100 * +hundredTotal;
-                setDollarsTotal(dollars - total);
-            } else if (dollarsTotal / 20 >= 1) {
-                let [twentyTotal] = (String(dollarsTotal / 20)).split('.');
-                setDollarType({...dollarType, twenty: +twentyTotal});
-                let total: number;
-                total = 20 * +twentyTotal;
-                setDollarsTotal(dollarsTotal - total);
-            } else if (dollarsTotal / 10 >= 1) {
-                let [tenTotal] = (String(dollarsTotal / 10)).split('.');
-                setDollarType({...dollarType, ten: +tenTotal});
-                let total: number;
-                total = 10 * +tenTotal;
-                setDollarsTotal(dollarsTotal - total);
-            } else if (dollarsTotal / 5 >= 1) {
-                let [fiveTotal] = (String(dollarsTotal / 5)).split('.');
-                setDollarType({...dollarType, five: +fiveTotal});
-                let total: number;
-                total = 5 * +fiveTotal;
-                setDollarsTotal(dollarsTotal - total);
-            } else if (dollarsTotal >= 1) {
-                let [oneTotal] = (String(dollarsTotal)).split('.');
-                setDollarType({...dollarType, one: +oneTotal});
-                let total: number;
-                total = +oneTotal;
-                setDollarsTotal(dollarsTotal - total);
-            }
-        }
-
-        convertToDollars();
-        convertToCoins();
-
-    }, [centsTotal, setCentsTotal, dollarsTotal, setDollarsTotal, cents, coinType, dollarType, dollars])
+    }, [convertToCoins, convertToDollars]);
 
 
     const spitDollarsAndCents = (string: string) => {
